@@ -24,9 +24,12 @@ public class VeranoApplication {
         }
     }
     
+ 
+
+    
     public static void main(String[] args) {
                 
-                //pruebaSensor();
+                //pruebaSensor();  
                 
 		SpringApplication.run(VeranoApplication.class, args);
 	}
