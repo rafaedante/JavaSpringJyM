@@ -11,11 +11,14 @@ import com.bolivarsoft.sensorvelocidad.TipoVehiculo;
 import eduit.com.model.Ticket;
 import eduit.com.repository.GrabadorMulta;
 import java.util.UUID;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author rafaeli
  */
+
+@Service
 public class EvaluadorMultas {
     
     private GrabadorMulta grabadorMulta;

@@ -1,0 +1,100 @@
+package eduit.com;
+
+import com.bolivarsoft.sensorclima.SensorClima;
+import com.bolivarsoft.sensorvelocidad.SensorVelocidad;
+import eduit.com.services.EvaluadorMultas;
+import eduit.com.services.GrabadorMultaJson;
+import eduit.com.services.SensorInEternum;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Service;
+
+class Servicio2 {
+    public void ejecutarTb() {
+        System.out.println("Servicio2 ejecutandose");
+    }
+}
+
+class Servicio1 {
+    
+    Servicio2 servicio2;
+
+    public Servicio1(Servicio2 servicio2) {
+        this.servicio2 = servicio2;
+    }   
+    
+    
+    public void ejecutar() {
+        System.out.println("Hola desde servicio1");
+        servicio2.ejecutarTb();
+    }
+}
+
+class ServicioA {
+
+    private String mensaje;
+    
+    public ServicioA(String mensaje){
+        this.mensaje = mensaje;
+    }
+    
+    public void ejecutar() {
+        System.out.println("Mensaje: " + mensaje);
+    }
+}
+
+
+@Service
+public class Init implements CommandLineRunner{
+    
+     private static SensorInEternum factory(){
+        return new SensorInEternum(
+                new SensorClima(),
+                new SensorVelocidad(),
+                new EvaluadorMultas(
+                        new GrabadorMultaJson()
+                )
+        );
+    }
+    
+     @Bean("nombreServicio1")
+     Servicio1 crearServicio1() {
+         return new Servicio1(new Servicio2());
+     }
+     
+     @Bean("Primero")
+     ServicioA servicioA1() {
+         return new ServicioA("Hola curso");
+     }
+     
+     @Bean("Ultimo")
+     ServicioA servicioA2() {
+         return new ServicioA("Chau curso");
+     }
+     
+     @Autowired
+     ApplicationContext applicationContext;
+    
+     
+     
+     
+     @Override
+    public void run(String... args) throws Exception {
+        // factory().sensar();
+        
+        Servicio1 srv1 = null;
+        srv1 = applicationContext.getBean(Servicio1.class);
+        srv1.ejecutar();
+        srv1 = applicationContext.getBean("nombreServicio1", Servicio1.class);
+        srv1.ejecutar();
+        
+        ServicioA srvA = null;
+        srvA = applicationContext.getBean("Primero", ServicioA.class);
+        srvA.ejecutar();
+        srvA = applicationContext.getBean("Ultimo", ServicioA.class);
+        srvA.ejecutar();
+    }
+    
+}

@@ -10,29 +10,26 @@ import com.bolivarsoft.sensorvelocidad.SensorVelocidad;
 import eduit.com.services.EvaluadorMultas;
 import eduit.com.services.GrabadorMultaJson;
 import eduit.com.services.SensorInEternum;
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-/**
- *
- * @author rafaeli
- */
+
+
 @Service
 public class Init implements CommandLineRunner{
     
-     private static SensorInEternum factory(){
-        return new SensorInEternum(
-                new SensorClima(),
-                new SensorVelocidad(),
-                new EvaluadorMultas(
-                        new GrabadorMultaJson()
-                )
-        );
-    }
-
-    @Override
+    @Autowired
+    SensorInEternum sensorInEternum;     
+     
+     @Override
     public void run(String... args) throws Exception {
-        factory().sensar();
+        sensorInEternum.sensar();       
     }
-    
-}
+}    
+

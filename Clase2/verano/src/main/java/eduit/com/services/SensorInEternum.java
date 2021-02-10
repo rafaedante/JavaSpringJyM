@@ -9,11 +9,14 @@ import com.bolivarsoft.sensorclima.SensorClima;
 import com.bolivarsoft.sensorclima.TipoClima;
 import com.bolivarsoft.sensorvelocidad.DatosVehiculo;
 import com.bolivarsoft.sensorvelocidad.SensorVelocidad;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author rafaeli
  */
+
+@Component
 public class SensorInEternum {
     
     private SensorClima sensorClima;
