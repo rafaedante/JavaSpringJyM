@@ -5,6 +5,7 @@
  */
 package eduit.com.repository;
 
+import eduit.com.annotations.Medible;
 import eduit.com.components.ContenedorJPA;
 import eduit.com.model.Ticket;
 import eduit.com.repository.GrabadorMulta;
@@ -25,7 +26,8 @@ public class GrabadorMultaSql implements GrabadorMulta{
     @Autowired
     ContenedorJPA contenedorJPA;
 
-    @Override
+    //@Override
+    @Medible
     public void grabar(Ticket t) {
         System.out.println("Grabando multa en sql");
         EntityManager entityManager = contenedorJPA.getEntityManager();
